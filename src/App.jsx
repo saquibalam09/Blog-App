@@ -1,14 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useDispatch} from 'react-redux'
+import { useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [loading , setLoading] = useEffect(true);
+  const dispatch = useDispatch();
   return (
     <>
-      <h1>HEllo</h1>
+      <h1>A Blog App with Apprite</h1>
     </>
   )
 }
