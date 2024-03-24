@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import { Link , createRoutesFromChildren, useNavigate } from 'react-router-dom';
 import { login as authLogin } from '../store/authSlice';
 import {Button, Input , Logo} from './index';
-import { UseDispatch, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import authService from '../appwrite/auth';
 import {useForm} from 'react-hook-form';
 
@@ -27,8 +27,6 @@ function Login() {
             setError(error.message)
         }
     }
-
-
     return (
         <div
         className='flex items-center justify-center w-full'
