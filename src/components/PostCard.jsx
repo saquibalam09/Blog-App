@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function PostCard({$id, title , featuredImage}) {
     return (
-        <Link to={'/post/${$id}'}>
+        <Link to={`/post/${$id}`}>
             <div className='w-full p-4 bg-gray-100 rounded-xl'>
                 <div className='justify-content w-full mb-4'>
                     <img src={appwriteService.getFilePreview(featuredImage)} alt={title} className='rounded-xl'/>
@@ -15,5 +15,4 @@ function PostCard({$id, title , featuredImage}) {
         </Link>
     )
 }
-
 export default PostCard;

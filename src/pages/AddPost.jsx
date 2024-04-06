@@ -7,9 +7,7 @@ function AddPost() {
             <Container>
                 <PostForm/>
             </Container>
-        </div>
-        
+        </div>   
     )
 }
-
-export default AddPost
+export default AddPost;

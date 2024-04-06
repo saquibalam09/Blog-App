@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { Link , createRoutesFromChildren, useNavigate } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
 import { login as authLogin } from '../store/authSlice';
 import {Button, Input , Logo} from './index';
 import { useDispatch } from 'react-redux';
@@ -15,11 +15,14 @@ function Login() {
 
 
     const login = async(data) => {
+        console.log(data);
         setError("")
         try {
             const session = await authService.login(data)
+            console.log(session);
             if (session) {
                 const userData = await authService.getCurrentUser()
+                console.log(userData);
                 if(userData) dispatch(authLogin(userData));
                 navigate("/")
             }
@@ -32,11 +35,11 @@ function Login() {
         className='flex items-center justify-center w-full'
         >
             <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
-                <div className="mb-2 flex justify-center">
+                {/* <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
                         <Logo width='100%'/>
                     </span>
-                </div>
+                </div> */}
                 <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>
                 <p className="mt-2 text-center text-base text-black/60">
                     Don&apos;t have any account?&nbsp;
@@ -51,7 +54,7 @@ function Login() {
                 <form onSubmit={handleSubmit(login)} className='mt-8'>
                     <div className='space-y-5'>
                         <Input 
-                            label="Email: s"
+                            label="Email: "
                             placeholder="Enter your Email"
                             type="email"
                             {...register("email", {
@@ -62,7 +65,6 @@ function Login() {
                                 }
 
                             })}
-
                         />
                         <Input
                             label="Password: "
@@ -76,14 +78,11 @@ function Login() {
                             type="submit"
                             className="w-full"
                         >Sign in</Button>
-
                     </div>
                 </form>
-
-
             </div>  
         </div>
     )
 }
 
-export default Login
+export default Login;

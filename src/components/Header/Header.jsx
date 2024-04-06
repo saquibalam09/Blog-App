@@ -7,12 +7,13 @@ import authSlice from '../../store/authSlice';
 
   function Header() {
 
-    const authService = useSelector((state) => state.auth.status);
+    const authStatus = useSelector((state) => state.auth.status);
     const navigate = useNavigate();
     const navItems = [
       {
         name: "Home",
-        slug : "/"
+        slug : "/",
+        active: true,
       },
       {
         name: "Login",

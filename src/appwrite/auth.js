@@ -1,5 +1,7 @@
 import conf from '../conf/conf';
-import { Client, Account, ID, Query } from "appwrite";
+import { Client, Account, ID} from "appwrite";
+
+
 
 export class AuthService {
     client = new Client();
@@ -14,24 +16,26 @@ export class AuthService {
     }
     async createAccount({email , password , name}){
         try {
-            await this.account.create(ID.unique(), email , password , name);
+            
+            const userAccount =await this.account.create(ID.unique(), email , password , name);
+            
             if (userAccount) {
                 // call another method
-                return this.login({email,password})
+                return await this.login({email, password})
             } else {
-                
+                return userAccount;          
             }
-            
+
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: createAccount :: error", error);     
         }
     }
     async login({email , password}){
         try {         
-           return await this.account.createEmailSession({email,password})  
+           return await this.account.createEmailSession(email , password)  
 
         } catch (error) {
-            throw error      
+            console.log("Appwrite service :: createEmailSession :: error", error);     
         }
     }
     async getCurrentUser(){
@@ -40,14 +44,14 @@ export class AuthService {
             
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser :: error", error);
-            
+
         }
         return null;
     }
     async logout(){
         try {
             
-           return await this.account.deleteSessions('all');
+            await this.account.deleteSessions('all');
             
         } catch (error) {
             console.log("Appwrite service :: logout :: error", error);
@@ -55,54 +59,54 @@ export class AuthService {
         }
         
     }
-    async getPosts(queries = [Query.equal("status" , "active")]){
-        try {
-            return await this.databases.listDocuments(
-                conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
-                // [
-                //     Query.equal("status" , "active")
-                // ]
-                queries, 
-            )
+    // async getPosts(queries = [Query.equal("status" , "active")]){
+    //     try {
+    //         return await this.databases.listDocuments(
+    //             conf.appwriteDatabaseId,
+    //             conf.appwriteCollectionId,
+    //             // [
+    //             //     Query.equal("status" , "active")
+    //             // ]
+    //             queries, 
+    //         )
             
-        } catch (error) {
-            console.log("Appwrite service :: logout :: error", error);
-            return false;
-        }
-    }
+    //     } catch (error) {
+    //         console.log("Appwrite service :: logout :: error", error);
+    //         return false;
+    //     }
+    // }
     //file upload service
-    async uploadFile(file){
-        try {
-            return await this.bucket.createFile(
-                conf.appwriteBucketId,
-                ID.unique(),
-                file,
-            )
-        } catch (error) {
-            console.log("Appwrite service :: logout :: error", error);
-            return false;
-        }
-    }
-    async deleteFile(fileId){
-        try {
-            await this.bucket.deleteFile(
-                conf.appwriteBucketId,
-                fileId
-            )
-            return true;
+    // async uploadFile(file){
+    //     try {
+    //         return await this.bucket.createFile(
+    //             conf.appwriteBucketId,
+    //             ID.unique(),
+    //             file,
+    //         )
+    //     } catch (error) {
+    //         console.log("Appwrite service :: logout :: error", error);
+    //         return false;
+    //     }
+    // }
+    // async deleteFile(fileId){
+    //     try {
+    //         await this.bucket.deleteFile(
+    //             conf.appwriteBucketId,
+    //             fileId
+    //         )
+    //         return true;
             
-        } catch (error) {
-            console.log("Appwrite service :: logout :: error", error);
-            return false;
-        }
-    }
-    getFilePreview(fileId){
-        return this.bucket.getFilePreview(
-            conf.appwriteBucketId,
-            fileId
-        )
-    }
+    //     } catch (error) {
+    //         console.log("Appwrite service :: logout :: error", error);
+    //         return false;
+    //     }
+    // }
+    // getFilePreview(fileId){
+    //     return this.bucket.getFilePreview(
+    //         conf.appwriteBucketId,
+    //         fileId
+    //     )
+    // }
 
 
 }
