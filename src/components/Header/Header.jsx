@@ -59,7 +59,7 @@ import authSlice from '../../store/authSlice';
                       </li>
                     ) : null
                   ))}
-                  {authSlice && (
+                  {authStatus && (
                     <li>
                       <LogoutBtn/>
                     </li>
