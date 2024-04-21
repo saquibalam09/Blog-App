@@ -74,6 +74,7 @@ export class Service{
             
         } catch (error) {
             console.log("Appwrite service :: getPost :: error", error);
+            return false;
         }
     }
     async getPosts(queries = [Query.equal("status", "active")]){
@@ -100,7 +101,7 @@ export class Service{
             )
         } catch (error) {
             console.log("Appwrite serive :: uploadFile :: error", error);
-            return false
+            return false;
         }
     }
 
@@ -113,7 +114,7 @@ export class Service{
             return true
         } catch (error) {
             console.log("Appwrite serive :: deleteFile :: error", error);
-            return false
+            return false;
         }
     }
 

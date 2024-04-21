@@ -49,15 +49,11 @@ export class AuthService {
         return null;
     }
     async logout(){
-        try {
-            
+        try { 
             await this.account.deleteSessions("current");
-            
         } catch (error) {
             console.log("Appwrite service :: logout :: error", error);
-            
-        }
-        
+        }   
     }
     // async getPosts(queries = [Query.equal("status" , "active")]){
     //     try {
@@ -107,9 +103,6 @@ export class AuthService {
     //         fileId
     //     )
     // }
-
-
 }
 const authService = new AuthService();
-
 export default authService;
