@@ -29,6 +29,7 @@ export default function Protected({
         } else if(!authentication && authStatus !== authentication){
             navigate("/")
         }
+        
         setLoader(false)
     }, [authStatus, navigate, authentication])
 

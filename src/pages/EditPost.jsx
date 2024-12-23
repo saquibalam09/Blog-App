@@ -1,32 +1,35 @@
-import React, {useState , useEffect} from 'react';
-import { Container, PostCard, PostForm } from '../components';
-import appwriteService from "../appwrite/config"
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Container, PostCard, PostForm } from "../components";
+import appwriteService from "../appwrite/config";
+import { useNavigate, useParams } from "react-router-dom";
+import Homelayout from "../Layout/Homelayout";
 
 function EditPost() {
-    const [post , setPost] = useState([]);
-    const {slug} = useParams();
+  const [post, setPost] = useState([]);
+  const { slug } = useParams();
 
-    const navigate = useNavigate();
-    useEffect(()=>{
-        if(slug){
-            appwriteService.getPost(slug).then((post)=>{
-                if(post){
-                    setPost(post)
-                }
-            })
-        } else{
-            navigate('/');
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (slug) {
+      appwriteService.getPost(slug).then((post) => {
+        if (post) {
+          setPost(post);
         }
-    }, [slug , navigate])
-    return post ? ( 
-    <div className='py-8'> 
+      });
+    } else {
+      navigate("/");
+    }
+  }, [slug, navigate]);
+
+  return post ? (
+    <Homelayout>
+      <div className="py-8">
         <Container>
-            <PostForm post={post}/>
+          <PostForm {...post} />
         </Container>
-        
-    </div> 
-    ): null;
+      </div>
+    </Homelayout>
+  ) : null;
 }
 
 export default EditPost;
