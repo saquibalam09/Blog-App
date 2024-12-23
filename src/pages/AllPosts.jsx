@@ -10,6 +10,7 @@ function AllPosts() {
       if (posts) {
         setPosts(posts.documents);
       }
+      console.log("saquib");
     });
   }, []);
 
